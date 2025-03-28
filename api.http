@@ -1,0 +1,29 @@
+# Listar todos os usuários
+GET http://localhost:3000/users HTTP/1.1
+
+# Listar os usuários com filtro
+GET http://localhost:3000/users?id=1 HTTP/1.1
+
+# Criar um novo usuário
+POST http://localhost:3000/user HTTP/1.1
+content-type: application/json
+
+{
+    "Nome": "Bianca",
+    "sobrenome": "Lima",
+    "idade": 25
+}
+
+# Atualizar um usuário
+PUT http://localhost:3000/user?id=1 HTTP/1.1
+content-type: application/json
+
+{
+    "Nome": "Bianca",
+    "sobrenome": "Lim",
+    "idade": 25
+}
+
+# Deletar um usuário
+DELETE http://localhost:3000/user?id=1 HTTP/1.1
+

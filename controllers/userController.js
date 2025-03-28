@@ -22,11 +22,11 @@ export const getUsers = (req, res) => {
     }
 
     if (filteredUsers.length === 0) {
-        res.writeHead(404);
+        res.writeHead(404, { 'Content-Type': 'application/json' });
         return res.end(JSON.stringify({ message: 'User not found' }));
     }
 
-    res.writeHead(200);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(filteredUsers));
 };
 
@@ -35,17 +35,17 @@ export const getUserById = (req, res) => {
     const { id } = req.query;
 
     if (!id) {
-        res.writeHead(400);
+        res.writeHead(400, { 'Content-Type': 'application/json' });
         return res.end(JSON.stringify({ message: 'User ID required' }));
     }
 
     const user = users.find(user => user.id === parseInt(id));
     if (!user) {
-        res.writeHead(404);
+        res.writeHead(404, { 'Content-Type': 'application/json' });
         return res.end(JSON.stringify({ message: 'User not found' }));
     }
 
-    res.writeHead(200);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(user));
 };
 
@@ -55,17 +55,17 @@ export const createUser = (req, res, body) => {
         const { nome, sobrenome, idade } = JSON.parse(body);
 
         if (!nome || !sobrenome || !idade) {
-            res.writeHead(400);
+            res.writeHead(400, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ message: 'Missing fields' }));
         }
 
         const newUser = { id: generateId(), nome, sobrenome, idade };
         users.push(newUser);
 
-        res.writeHead(201);
+        res.writeHead(201, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'User created', user: newUser }));
     } catch (error) {
-        res.writeHead(400);
+        res.writeHead(400, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'Invalid JSON' }));
     }
 };
@@ -75,7 +75,7 @@ export const updateUser = (req, res, body) => {
     const { id } = req.query;
 
     if (!id) {
-        res.writeHead(400);
+        res.writeHead(400, { 'Content-Type': 'application/json' });
         return res.end(JSON.stringify({ message: 'User ID required' }));
     }
 
@@ -84,7 +84,7 @@ export const updateUser = (req, res, body) => {
         const user = users.find(user => user.id === parseInt(id));
 
         if (!user) {
-            res.writeHead(404);
+            res.writeHead(404, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ message: 'User not found' }));
         }
 
@@ -92,10 +92,10 @@ export const updateUser = (req, res, body) => {
         user.sobrenome = sobrenome || user.sobrenome;
         user.idade = idade || user.idade;
 
-        res.writeHead(200);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'User updated', user }));
     } catch (error) {
-        res.writeHead(400);
+        res.writeHead(400, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'Invalid JSON' }));
     }
 };
@@ -105,17 +105,17 @@ export const deleteUser = (req, res) => {
     const { id } = req.query;
 
     if (!id) {
-        res.writeHead(400);
+        res.writeHead(400, { 'Content-Type': 'application/json' });
         return res.end(JSON.stringify({ message: 'User ID required' }));
     }
 
     const index = users.findIndex(user => user.id === parseInt(id));
     if (index === -1) {
-        res.writeHead(404);
+        res.writeHead(404, { 'Content-Type': 'application/json' });
         return res.end(JSON.stringify({ message: 'User not found' }));
     }
 
     users.splice(index, 1);
-    res.writeHead(200);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ message: 'User deleted' }));
 };

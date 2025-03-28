@@ -7,8 +7,10 @@ import {
 } from '../controllers/userController.js';
 
 const userRoutes = (req, res, parsedUrl) => {
-    const { method, pathname } = parsedUrl;
+    const { pathname } = parsedUrl; // Remova o método daqui
+    const method = req.method; // Use req.method para obter o método HTTP
     console.log('Chegou em userRoutes:', { method, pathname });
+
     
     let body = '';
     req.on('data', chunk => {
